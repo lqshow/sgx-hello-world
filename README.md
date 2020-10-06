@@ -28,3 +28,38 @@ Hello world From SGX Enclave!
 Tue Oct  6 03:38:55 2020
 Hello world From SGX Enclave!
 ```
+
+## Run in k8s
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sgx-helloworld
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sgx-helloworld
+  template:
+    metadata:
+      labels:
+        app: sgx-helloworld
+    spec:
+      containers:
+      - image: lqshow/sgx-hello-world
+        imagePullPolicy: Always
+        name: sgx-helloworld
+        resources:
+          limits:
+            cpu: 250m
+            memory: 512Mi
+        volumeMounts:
+        - mountPath: /var/run/aesmd/aesm.socket
+          name: aesmsocket
+      volumes:
+      - hostPath:
+          path: /var/run/aesmd/aesm.socket
+          type: Socket
+        name: aesmsocket
+```

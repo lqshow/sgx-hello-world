@@ -65,3 +65,23 @@ spec:
           type: Socket
         name: aesmsocket
 ```
+
+## Troubleshooting
+
+### 依赖 Intel SGX PSW(Platform Software) 
+
+如果容器内未安装 PSW，报以下错误
+
+```bash
+./app: error while loading shared libraries: libsgx_urts.so: cannot open shared object file: No such file or directory
+```
+
+### 需要开启容器特权模式可使用 SGX
+
+非特权模式下，pod 一直处于 CrashLoopBackOff 状态
+
+```bash
+➜ kubectl logs -f sgx-helloworld-76dbf445bc-h476l
+Failed to create enclave, ret code: 8198, enclave file: /project/enclave.signed.so
+Enter a character before exit ...
+```

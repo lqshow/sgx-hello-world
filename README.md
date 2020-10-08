@@ -50,6 +50,8 @@ spec:
       - image: lqshow/sgx-hello-world
         imagePullPolicy: Always
         name: sgx-helloworld
+        securityContext:
+          privileged: true
         resources:
           limits:
             cpu: 250m

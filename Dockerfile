@@ -52,6 +52,6 @@ RUN echo 'deb [arch=amd64] https://download.01.org/intel-sgx/sgx_repo/ubuntu bio
 WORKDIR /project
 
 # Copy our static executable binary
-COPY --from=builder /workspace/src/app /workspace/src/enclave.signed.so /workspace/src/enclave.so ./
+COPY --from=builder /workspace/src/app /workspace/src/enclave.signed.so ./
 
 CMD ["/project/app"]
